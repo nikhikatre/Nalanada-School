@@ -829,6 +829,8 @@
         }
 </style>
 
+{{-- comment added --}}
+
  <!-- PAGE HERO -->
     <section class="page-hero">
         <div class="page-hero-rays"></div>
