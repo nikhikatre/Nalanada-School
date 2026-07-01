@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InspectorController;
 
 Route::view('/', 'pages.home')->name('Home');
 Route::view('/about', 'pages.about')->name('About');
@@ -36,3 +37,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/dashboard/student/delete/{id}', [AdminController::class, 'delete'])->name('admin.deleteStudent');
 });
 
+// Inspector routes - protected by inspector middleware (auth + inspector role)
+Route::middleware('inspector')->group(function () {
+    Route::get('/inspector/dashboard', [InspectorController::class, 'dashboard'])->name('inspector.dashboard');
+});

@@ -49,14 +49,15 @@ class UserController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Attempt to log in the user
         if (Auth::attempt($credentials)) {
             // Regenerate session to prevent session fixation attacks
             $request->session()->regenerate();
 
-            // check the user is admin or user
+            // check the user is admin, inspector or user
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.dashboard');
+            } elseif (Auth::user()->role === 'inspector') {
+                return redirect()->route('inspector.dashboard');
             } else {
                 return redirect()->route('notAuthorized');
             }

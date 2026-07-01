@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nalanda Admin — TC Records</title>
+    <title>Nalanda Inspector — TC Records</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
@@ -1080,9 +1080,7 @@
         <a class="nav-item active" onclick="showPage('records')">
             <i class="bi bi-file-earmark-person"></i> TC Records
         </a>
-        <a class="nav-item" onclick="showPage('dashboard')">
-            <i class="bi bi-grid-1x2"></i> Dashboard
-        </a>
+        
 
         <!--
         <div class="nav-section">Management</div>
@@ -1109,7 +1107,7 @@
         </form>
 
         <div class="sidebar-footer">
-            <small>Admin Panel v1.0 &nbsp;•&nbsp; CBSE Affiliated</small>
+            <small>Inspector Panel v1.0 &nbsp;•&nbsp; CBSE Affiliated</small>
         </div>
     </aside>
 
@@ -1120,8 +1118,8 @@
             <div class="page-title" id="topbarTitle">TC Records</div>
         </div>
         <div class="topbar-right">
-            <span class="topbar-badge"><i class="bi bi-shield-check me-1"></i>CBSE Verified</span>
-            <div class="admin-avatar">AD</div>
+            <span class="topbar-badge" style="background:var(--gold);color:var(--ink);"><i class="bi bi-eye me-1"></i>Inspector View</span>
+            <div class="admin-avatar">IN</div>
         </div>
     </div>
 
@@ -1216,9 +1214,7 @@
                         <button class="active" id="btnCard" onclick="setView('card')"><i class="bi bi-grid-3x2-gap"></i></button>
                         <button id="btnTable" onclick="setView('table')"><i class="bi bi-table"></i></button>
                     </div>
-                    <button class="btn-primary-g" onclick="openAddModal()">
-                        <i class="bi bi-plus-lg"></i> Add Record
-                    </button>
+                    
                 </div>
 
                 <!-- Cards View -->
@@ -1274,201 +1270,7 @@
         </div>
     </main>
 
-    <!-- ══════════════════════════════════════════
-     ADD / EDIT MODAL
-══════════════════════════════════════════ -->
-    <div class="modal fade" id="recordModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <form class="modal-content" action="{{ route('admin.storeStudent') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Add TC Record</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                
-                @if($errors->any())
-                <div class="alert alert-danger m-3">
-                    <ul class="mb-0">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-                
-                <div class="modal-body">
-                        <input type="hidden" id="editId" name="editId">
-
-                        <div class="section-divider"><span>Student Info</span></div>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Student Full Name *</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="fName" name="name" placeholder="e.g. Rahul Kumar Sharma" value="{{ old('name') }}">
-                                @error('name')
-                                <p class="invalid-feedback">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Class *</label>
-                                <select class="form-select @error('class') is-invalid @enderror" id="fClass" name="class">
-                                    <option value="">Select Class</option>
-                                    <option value="class_1">Class 1</option>
-                                    <option value="class_2">Class 2</option>
-                                    <option value="class_3">Class 3</option>
-                                    <option value="class_4">Class 4</option>
-                                    <option value="class_5">Class 5</option>
-                                    <option value="class_6">Class 6</option>
-                                    <option value="class_7">Class 7</option>
-                                    <option value="class_8">Class 8</option>
-                                    <option value="class_9">Class 9</option>
-                                    <option value="class_10">Class 10</option>
-                                    <option value="class_11">Class 11</option>
-                                    <option value="class_12">Class 12</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Section</label>
-                                <input type="text" class="form-control @error('section') is-invalid @enderror" id="fSection" name="section" placeholder="A / B / C" value="{{ old('section') }}">
-                                @error('section')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Roll Number</label>
-                                <input type="text" class="form-control @error('roll_number') is-invalid @enderror" id="fRoll" name="roll_number" placeholder="e.g. 2024-101" value="{{ old('roll_number') }}">
-                                @error('roll_number')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror" id="fDob" name="date_of_birth">
-                                @error('date_of_birth')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Admission Number</label>
-                                <input type="text" class="form-control @error('admission_number') is-invalid @enderror" id="fAdmNo" name="admission_number" placeholder="e.g. ADM2020-045">
-                                @error('admission_number')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="section-divider mt-4"><span>Parent / Guardian</span></div>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Father's Name *</label>
-                                <input type="text" class="form-control @error('father_name') is-invalid @enderror" id="fFather" name="father_name" placeholder="Father's full name">
-                                @error('father_name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Mother's Name</label>
-                                <input type="text" class="form-control @error('mother_name') is-invalid @enderror" id="fMother" name="mother_name" placeholder="Mother's full name">
-                                @error('mother_name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Contact Number *</label>
-                                <input type="tel" class="form-control @error('contact_number') is-invalid @enderror" id="fContact" name="contact_number" placeholder="10-digit mobile number" maxlength="10">
-                                @error('contact_number')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Alternate Contact</label>
-                                <input type="tel" class="form-control" id="fContact2" name="alternate_contact_number" placeholder="Optional">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Address *</label>
-                                <textarea class="form-control @error('address') is-invalid @enderror" id="fAddress" name="address" rows="2" placeholder="Full residential address…"></textarea>
-                                @error('address')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="section-divider mt-4"><span>Leaving Details</span></div>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Date of Leaving *</label>
-                                <input type="date" class="form-control @error('leaving_date') is-invalid @enderror" id="fLeaveDate" name="leaving_date">
-                                @error('leaving_date')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">TC Status *</label>
-                                <select class="form-select" id="fStatus" name="tc_status">
-                                    <option value="issued">TC Issued</option>
-                                    <option value="pending">Pending</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Reason for Leaving *</label>
-                                <textarea class="form-control @error('leaving_reason') is-invalid @enderror" id="fReason" name="leaving_reason" rows="2"
-                                    placeholder="e.g. Family relocated to another city, Transfer case…"></textarea>
-                                @error('leaving_reason')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Transfer to School</label>
-                                <input type="text" class="form-control" id="fTransferTo" name="transfer_to_school" placeholder="Name of new school (if known)">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">TC Issue Date</label>
-                                <input type="date" class="form-control" id="fTcDate" name="tc_date_issued">
-                            </div>
-                        </div>
-
-                        <div class="section-divider mt-4"><span>TC Certificate Document</span></div>
-                        <div class="doc-upload-area" onclick="document.getElementById('fDoc').click()">
-                            <i class="bi bi-cloud-upload"></i>
-                            <strong style="font-size:.85rem;color:var(--green);">Click to upload TC Certificate</strong>
-                            <p>PNG, JPG, PDF, DOCX supported • Max 5MB</p>
-                            <input type="file" id="fDoc" accept=".png,.jpg,.jpeg,.pdf,.doc,.docx" style="display:none;" class="@error('document') is-invalid @enderror" onchange="handleDocUpload(event)" name="document">
-                            @error('document')
-                            <div class="invalidfeedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="doc-preview-wrap" id="docPreviewWrap">
-                            <div
-                                style="display:flex;align-items:center;gap:10px;background:var(--green-lt);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-                                <i class="bi bi-file-earmark-check" style="color:var(--green);font-size:1.2rem;"></i>
-                                <div>
-                                    <div style="font-size:.8rem;font-weight:600;color:var(--ink)" id="docFileName">file.pdf</div>
-                                    <div style="font-size:.7rem;color:var(--muted)" id="docFileSize">—</div>
-                                </div>
-                                <button type="button" onclick="clearDoc()"
-                                    style="margin-left:auto;background:none;border:none;color:var(--red);font-size:1.1rem;cursor:pointer;"><i
-                                        class="bi bi-x-circle"></i></button>
-                            </div>
-                            <img id="docImgPreview"
-                                style="display:none;margin-top:8px;max-height:120px;border-radius:8px;border:1px solid var(--border);">
-                        </div>
-                        <div id="existingDocInfo" style="display:none;" class="mt-2">
-                            <span style="font-size:.78rem;color:var(--muted);"><i class="bi bi-paperclip"></i> Existing document on
-                                file. Upload new to replace.</span>
-                        </div>
-
-                        <div id="formError" style="display:none;" class="alert alert-danger mt-3 py-2 px-3 rounded-3"
-                            style="font-size:.8rem;"></div>
-                    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-3"
-                        data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-primary-g">
-                        <i class="bi bi-check-lg"></i> <span id="saveBtnText">Save Record</span>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+    
 
     <!-- ══════════════════════════════════════════
      VIEW DETAIL MODAL
@@ -1484,8 +1286,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-outline-secondary rounded-3"
                         data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn-sm-g btn-edit" style="padding:7px 16px;" id="detailEditBtn"><i
-                            class="bi bi-pencil"></i> Edit</button>
+                    
                     <button type="button" class="btn-sm-g btn-dl" style="padding:7px 16px;" id="detailDlBtn"><i
                             class="bi bi-download"></i> Download TC</button>
                 </div>
@@ -1493,36 +1294,7 @@
         </div>
     </div>
 
-    <!-- ══════════════════════════════════════════
-     DELETE CONFIRM MODAL
-══════════════════════════════════════════ -->
-    <div class="modal fade del-modal" id="deleteModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><i class="bi bi-trash3 me-2"></i>Delete Record</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center py-4">
-                    <div
-                        style="width:64px;height:64px;background:var(--red-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.8rem;color:var(--red);">
-                        <i class="bi bi-exclamation-triangle"></i>
-                    </div>
-                    <h5 style="color:var(--ink);font-size:1rem;margin-bottom:6px;">Are you sure?</h5>
-                    <p style="color:var(--muted);font-size:.85rem;" id="deleteConfirmText">This will permanently delete this TC
-                        record. This action cannot be undone.</p>
-                </div>
-                <div class="modal-footer justify-content-center gap-3">
-                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-3 px-4"
-                        data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn-sm-g btn-del px-4" style="padding:8px 20px;font-size:.82rem;"
-                        onclick="confirmDelete()">
-                        <i class="bi bi-trash3"></i> Delete
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- TOAST -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -1686,8 +1458,7 @@
         <div class="rec-actions">
           <button class="btn-sm-g btn-view" onclick="viewDetail(${r.id})"><i class="bi bi-eye"></i> View</button>
           <button class="btn-sm-g btn-dl" onclick="downloadDoc(${r.id})" ${!hasDoc ? 'disabled title="No document"' : ''}><i class="bi bi-download"></i> TC</button>
-          <button class="btn-sm-g btn-edit" onclick="openEditModal(${r.id})"><i class="bi bi-pencil"></i></button>
-          <button class="btn-sm-g btn-del" onclick="openDeleteModal(${r.id})"><i class="bi bi-trash3"></i></button>
+          
         </div>
       </div>
     </div>`;
@@ -1724,8 +1495,7 @@
         <div style="display:flex;gap:4px;flex-wrap:wrap;">
           <button class="btn-sm-g btn-view" style="padding:3px 8px;font-size:.7rem;" onclick="viewDetail(${r.id})"><i class="bi bi-eye"></i></button>
           <button class="btn-sm-g btn-dl" style="padding:3px 8px;font-size:.7rem;" onclick="downloadDoc(${r.id})" ${!hasDoc ? 'disabled' : ''}><i class="bi bi-download"></i></button>
-          <button class="btn-sm-g btn-edit" style="padding:3px 8px;font-size:.7rem;" onclick="openEditModal(${r.id})"><i class="bi bi-pencil"></i></button>
-          <button class="btn-sm-g btn-del" style="padding:3px 8px;font-size:.7rem;" onclick="openDeleteModal(${r.id})"><i class="bi bi-trash3"></i></button>
+          
         </div>
       </td>
     </tr>`;
@@ -1925,7 +1695,7 @@
     <div style="font-size:.8rem;font-weight:700;color:var(--ink2);margin:16px 0 8px;text-transform:uppercase;letter-spacing:.05em;">TC Certificate</div>
     ${docHtml}
   `;
-            document.getElementById('detailEditBtn').onclick = () => openEditModal(id);
+            
             document.getElementById('detailDlBtn').onclick = () => downloadDoc(id);
             document.getElementById('detailDlBtn').disabled = !hasDoc;
             new bootstrap.Modal(document.getElementById('detailModal')).show();

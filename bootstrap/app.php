@@ -13,7 +13,19 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'inspector' => \App\Http\Middleware\InspectorMiddleware::class,
         ]);
+
+        $middleware->redirectUsersTo(function () {
+            if (auth()->check()) {
+                if (auth()->user()->role === 'admin') {
+                    return route('admin.dashboard');
+                } elseif (auth()->user()->role === 'inspector') {
+                    return route('inspector.dashboard');
+                }
+            }
+            return '/not-authorized';
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

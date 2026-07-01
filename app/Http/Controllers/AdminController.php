@@ -28,7 +28,7 @@ class AdminController extends Controller
                 'reason' => $item->leaving_reason,
                 'transferTo' => $item->transfer_to_school,
                 'docType' => $item->document ? (in_array(strtolower(pathinfo($item->document, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png']) ? 'image' : 'file') : null,
-                'docData' => $item->document ? asset('storage/'.$item->document) : null,
+                'docData' => $item->document ? '/storage/'.$item->document : null,
                 'docName' => $item->document ? basename($item->document) : '',
                 'createdAt' => $item->created_at->format('Y-m-d')
             ];
@@ -52,6 +52,8 @@ class AdminController extends Controller
 
         $data = $request->except(['_token', 'editId', 'document']);
 
+        \Log::info('Store request called', ['hasFile' => $request->hasFile('document'), 'file' => $request->file('document')]);
+
         if ($request->hasFile('document')) {
             $file = $request->file('document');
             $extension = $file->getClientOriginalExtension();
@@ -59,6 +61,7 @@ class AdminController extends Controller
             $safeClass = \Illuminate\Support\Str::slug($request->class);
             $filename = $safeName . '_' . $safeClass . '_' . time() . '.' . $extension;
             $path = $file->storeAs('documents', $filename, 'public');
+            \Log::info('File stored at: ' . $path);
             $data['document'] = $path;
         }
 
