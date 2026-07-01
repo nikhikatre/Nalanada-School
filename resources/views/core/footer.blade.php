@@ -108,7 +108,7 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-                    <img src="assets/logo.jpeg" style="width:52px;height:52px;border-radius:50%;" alt="logo"
+                    <img src="{{ asset('logo.jpeg') }}" style="width:52px;height:52px;border-radius:50%;" alt="logo"
                         onerror="this.style.display='none'">
                     <div>
                         <div class="footer-logo-n">Nalanda H.S.S.</div>
