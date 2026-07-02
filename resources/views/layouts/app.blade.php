@@ -6,7 +6,7 @@
     <title>@yield('title', 'My Website')</title>
 
     <!-- CSS & JS -->
-    @vite(['resources/css/app.css', 'resources/css/common.css', 'resources/css/navbar.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/common.css', 'resources/js/app.js'])
 </head>
 <body>
 

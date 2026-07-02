@@ -16,8 +16,7 @@
     },
     "dependencies": {
         "bootstrap": "^5.3.8",
-        "bootstrap-icons": "^1.13.1",
-        "markdown-pdf": "^11.0.0"
+        "bootstrap-icons": "^1.13.1"
     },
     "name": "nalanda_school",
     "version": "1.0.0",
