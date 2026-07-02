@@ -69,7 +69,13 @@
             <a href="{{ route('Academics') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Academics</a>
             <a href="{{ route('CampusFacilities') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Campus & Facilities</a>
             <a href="{{ route('StudentLife') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Student Life</a>
+<<<<<<< HEAD
             <a href="{{ route('FacultyStaff') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Faculty & Staff</a>
+=======
+            <a href="{{ route('FacultyStaff') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Faculty &amp; Staff</a>
+            {{-- <!-- <a href="{{ route('Gallery') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Gallery</a> --> --}}
+            {{-- <a href="{{ route('Events') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Events</a> --}}
+>>>>>>> dd9e15a3b494267c9e84600c4e575eebd302631b
             <a href="{{ route('CBSECorner') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>CBSE Corner</a>
             <a href="{{ route('Contact') }}" onclick="closeMobileMenu()"><span class="dl-dot"></span>Contact Us</a>
         </nav>
@@ -140,7 +146,7 @@
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 1px;
+    gap: 10px;
     flex-wrap: wrap
 }
 
